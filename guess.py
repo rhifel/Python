@@ -15,21 +15,22 @@ while chances > guesses:
     
     except ValueError:
         print("Invalid Input. Enter a whole number")
-
+        continue
     guesses+=1
 
     if number == guess:
-        print(f"{guess} = {number} YOU WIN🎉")
+        print(f"{guess} = {number} YOU WIN")
         break
 
     elif number > guess:
-        print(f"{guess} Guess Higher⬆️")
+        print(f"{guess} Guess Higher")
 
     else:
-        print(f"{guess} Guess Lower⬇️")
+        print(f"{guess} Guess Lower")
     
 
     print(f"Number of Guesses {guesses}/{chances}")
 
 if number != guess:
-    print(f"{guess}:{number} YOU LOSE🥲")   
+    print(f"{guess}:{number} YOU LOSE") 
+
