@@ -4,7 +4,7 @@ import time
 def spin_row():
     pass
     symbols = ['🍇', '🍍', '🍓', '⭐', '🔔']
-    result = []
+    #result = []
 
     #for symbol in range(3):
         #result.append(random.choice(symbols))
