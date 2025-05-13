@@ -68,3 +68,58 @@ product = a * b
 print(sums)
 print(diff)
 print(product)
+
+'''
+Add logic to print two lines. The first line should contain the result of integer division, a//b. 
+The second line should contain the result of float division, a / b.
+
+No rounding or formatting is necessary.
+'''
+#Problem 3
+a = int(input())
+b = int(input())
+div = a / b
+div1 = a // b
+print(div1) 
+print(div)
+
+'''
+Task
+The provided code stub reads an integer, , from STDIN. 
+For all non-negative integers , print i^2 .
+Example
+n = 3
+The list of non-negative integers that are less than n = 3 is [0,1,2]. 
+Print the square of each number on a separate line.
+'''
+#Problem 4
+n = int(input())
+for i in range(n):
+    print(i * i)
+
+'''
+Given a year, determine whether it is a leap year. 
+If it is a leap year, return the Boolean True, otherwise return False.
+Note that the code stub provided reads from STDIN and passes arguments to the is_leap function. 
+It is only necessary to complete the is_leap function.
+'''
+#Problem 5
+def is_leap(year):
+    leap = False
+    if year % 4 == 0:
+         if year % 100 != 0 or year % 400 == 0 :
+            leap = True
+    return leap
+
+year = int(input())
+print(is_leap(year))
+
+'''
+The included code stub will read an integer, , from STDIN.
+Without using any string methods, try to print the following:
+Note that "" represents the consecutive values in between.
+'''
+#Problem 6
+n = int(input())
+for i in range(1, n+1):
+    print(i, end="")
