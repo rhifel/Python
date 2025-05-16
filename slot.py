@@ -18,23 +18,36 @@ def print_slot_machine(grid):
         print(" | ".join(row))
     print("#############")
 
-def get_payout(grid, bet):
-    for row in grid:
-        if row[0] == row[1] == row[2]:
-            symbol = row[0]
-            if symbol == '🍇':
-                return bet * 2
-            elif symbol == '🍍':
-                return bet * 4
-            elif symbol == '🍓':
-                return bet * 6
-            elif symbol == '⭐':
-                return bet * 8
-            elif symbol == '🔔':
-                return bet * 10
+def payout_symbol(symbol, bet):
+    if symbol == '🍇':
+        return bet * 2
+    elif symbol == '🍍':
+        return bet * 4
+    elif symbol == '🍓':
+        return bet * 6
+    elif symbol == '⭐':
+        return bet * 8
+    elif symbol == '🔔':
+        return bet * 10
     return 0
 
+def get_payout(grid, bet):
+    total_payout = 0
+    for row in grid:
+        if row[0] == row[1] == row[2]:
+           total_payout += payout_symbol(row[0], bet)
 
+    for col in range(3):
+        if grid[0][col] == grid[1][col] == grid[2][col]:
+            total_payout += payout_symbol(grid[0][col], bet)
+
+    if grid[0][0] == grid[1][1] == grid[2][2]:
+        total_payout += payout_symbol(grid[0][0], bet)
+    
+    if grid[0][2] == grid[1][1] == grid[2][0]:
+        total_payout += payout_symbol(grid[0][2], bet)
+
+    return total_payout
 def main():
     
     balance = 100
@@ -65,12 +78,12 @@ def main():
 
         balance -= bet
 
-        row = spin_grid()
+        grid = spin_grid()
         print("Spinning......\n")
         time.sleep(2)
-        print_slot_machine(row)
+        print_slot_machine(grid)
 
-        payout = get_payout(row, bet)
+        payout = get_payout(grid, bet)
 
         if payout > 0:
             print(f"You Won {payout}Php")
