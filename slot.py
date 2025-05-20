@@ -62,7 +62,7 @@ def main():
     balance = 100
 
     print("#######################################")
-    print("🍇🍍🍓FRUITSLOT MACHINE🍇🍍🍓")
+    print("🍇🍍🍓SLOT MACHINE🍇🍍🍓")
     print("Symbols: 🍇🍍🍓⭐🔔")
     print("#######################################")
 
@@ -101,7 +101,9 @@ def main():
             print(f"You Won {payout}Php\n")
         else:
             print("Sorry You Lose This Round\n")
-
+            
+        if balance == 0:
+            print("GAME OVER!")
         balance += payout
 
 
