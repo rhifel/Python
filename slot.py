@@ -33,21 +33,30 @@ def payout_symbol(symbol, bet):
 
 def get_payout(grid, bet):
     total_payout = 0
-    for row in grid:
+    winning_lines = []
+    for i, row in enumerate(grid):
         if row[0] == row[1] == row[2]:
-           total_payout += payout_symbol(row[0], bet)
+           p = payout_symbol(row[0], bet)
+           total_payout += p
+           winning_lines.append(f"Row {i+1} matched {row[0]} (+{p} Php)")
 
     for col in range(3):
         if grid[0][col] == grid[1][col] == grid[2][col]:
-            total_payout += payout_symbol(grid[0][col], bet)
+            p = payout_symbol(grid[0][col], bet)
+            total_payout += p
+            winning_lines.append(f"Column {col+1} matched {grid[0][col]} (+{p} Php)")
 
     if grid[0][0] == grid[1][1] == grid[2][2]:
-        total_payout += payout_symbol(grid[0][0], bet)
+        p = payout_symbol(grid[0][0], bet)
+        total_payout += p
+        winning_lines.append(f"Diagonal (\\) matched {grid[0][0]} (+{p} Php)")
     
     if grid[0][2] == grid[1][1] == grid[2][0]:
-        total_payout += payout_symbol(grid[0][2], bet)
+        p = payout_symbol(grid[0][2], bet)
+        total_payout += p
+        winning_lines.append(f"Diagonal (/) matched {grid[0][2]} (+{p} Php)")
 
-    return total_payout
+    return total_payout, winning_lines
 def main():
     
     balance = 100
@@ -83,12 +92,15 @@ def main():
         time.sleep(2)
         print_slot_machine(grid)
 
-        payout = get_payout(grid, bet)
-
+        payout, win_lines = get_payout(grid, bet)
+        
         if payout > 0:
-            print(f"You Won {payout}Php")
+            for line in win_lines:
+                print("Winning Lines: >>", line)
+                #print(f"Number of Winning Lines: {lines}")
+            print(f"You Won {payout}Php\n")
         else:
-            print("Sorry You Lose This Round")
+            print("Sorry You Lose This Round\n")
 
         balance += payout
 
