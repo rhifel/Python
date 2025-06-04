@@ -142,4 +142,34 @@ def print_full_name(first, last):
 
 if __name__ == '__main__':
     print_full_name()
+'''
+Task
+You are given a string. Split the string on a " " (space) delimiter and join using a - hyphen.
+
+Function Description
+
+Complete the split_and_join function in the editor below.
+
+split_and_join has the following parameters:
+
+string line: a string of space-separated words
+Returns:
+string: the resulting string
+'''
+def split_and_join(line):
+    # write your code here
+    
+    a = line.split(" ")
+    #print(a)
+    
+    b = "-".join(a)
+    #print(b)
+    
+if __name__ == '__main__':
+
+    #split_and_join("this is a string")
+    line = input()
+    result = split_and_join(line)
+    print()
+    
     
