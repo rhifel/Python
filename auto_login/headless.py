@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+
 #import yaml
 import time
 
@@ -10,11 +12,16 @@ options = Options()
 options.add_argument("--headless")
 driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(5)
+
 driver.get("https://bandcamp.com/discover")
+print(driver.title)
 
-Title = driver.title
+pagination_button = driver.find_element(By.ID, "view-more")
+print(pagination_button)
 
-print(Title)
+tracks = driver.find_elements(By.CLASS_NAME, "results-grid-item")
+print(len(tracks))
+print(tracks[0].text)
 
 time.sleep(2)
 
