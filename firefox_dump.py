@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Based on original work from: www.dumpzilla.org
-
+'''
 from __future__ import annotations
 
 import argparse
@@ -1225,3 +1225,4 @@ def run_ffdecrypt():
 
 if __name__ == "__main__":
     run_ffdecrypt()
+'''
