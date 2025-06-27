@@ -1,41 +1,89 @@
 import pygame
+import sys
 
+# initialize pygame
 pygame.init()
+
+# Display 
 screen = pygame.display.set_mode((800, 400))
 pygame.display.set_caption('Runner')
+
+# initialize clock
 clock = pygame.time.Clock()
-running = True
-font_style = pygame.font.Font('fonts/Pixeltype.ttf', 50)
 
-sky_image = pygame.image.load('graphics/Sky.png').convert()
-ground_image = pygame.image.load('graphics/ground.png').convert()
+# Games States
+game_active = True
 
-text_style = font_style.render("The Running Game", False, 'Purple')
+# Font Style
+font_style = pygame.font.Font('fonts/Pixeltype.ttf', 50) 
 
-snail_image = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-snail_pos_x = 700 # snail initial position
-# tried putting here the snail_rect but the looping stop need to put it below
+# Background Images
+sky_img = pygame.image.load('graphics/Sky.png').convert()
+ground_img = pygame.image.load('graphics/ground.png').convert()
 
-player_image = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
-player_rect = player_image.get_rect(midbottom = (100,300)) # use rectangle to have more control of the image
+# Output Text
+score_txt = font_style.render("Score: ", False, "#E999DC")
+score_rect = score_txt.get_rect(center = (400, 50))
 
-while running:
+# Snail 
+snail_img = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
+snail_rect = snail_img.get_rect(midbottom = (700, 300))
+
+# Player
+player_img = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+player_rect = player_img.get_rect(midbottom = (100, 300)) # use rectangle to have more control of the image
+player_grav = 0
+
+# Game Loop
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            pygame.quit()
+            sys.exit()
+        if game_active:        
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if player_rect.collidepoint(event.pos) and player_rect.bottom == 300:
+                    player_grav = -20
+                
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and player_rect.bottom == 300:
+                    player_grav = -20
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    sys.exit()
+        else:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                game_active = True
+                snail_rect.left = 800
+                
+    if game_active:      
+        # Background Position        
+        screen.blit(sky_img,(0, 0))
+        screen.blit(ground_img,(0, 300)) 
+        
+        # Output Text Frame
+        pygame.draw.rect(screen, '#c0e8ec', score_rect, 0 , 5,)
+        screen.blit(score_txt,score_rect)
+        
+        # Snail Loop and Positon
+        snail_rect.x -= 5
+        if snail_rect.right <= 0: snail_rect.left = 800
+        screen.blit(snail_img,snail_rect)
 
-    screen.blit(sky_image,(0,0))
-    screen.blit(ground_image,(0,300))
-    screen.blit(text_style,(280,20))
-    
-    snail_pos_x -= 4
-    if snail_pos_x < -100: snail_pos_x = 800 #looping the snail
-    snail_rect = snail_image.get_rect(midbottom = (snail_pos_x,300)) # snail_rect needs to be here
-    screen.blit(snail_image,snail_rect)
+        # Player Keys and Position
+        player_grav += 1
+        player_rect.y += player_grav
+        if player_rect.bottom >= 300: player_rect.bottom = 300
+        screen.blit(player_img,player_rect)
 
-    screen.blit(player_image,player_rect)
-
+        # Collision
+        if snail_rect.colliderect(player_rect):
+            game_active = False
+    else:
+        screen.fill('#000000')
+        #game_over = pygame.image.load('graphics/game_over.png').convert_alpha()
+        #screen.blit(game_over,(0, 0))
+        
     pygame.display.update()
     clock.tick(60)
 
-pygame.quit()
