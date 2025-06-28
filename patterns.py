@@ -4,7 +4,7 @@
 # Triangle
 rows = int(input("Enter Number of Rows: "))
 
-for i in range(1, rows, +1):
+for i in range(1, rows,):
     print(" " * (rows - i) + "* " * i)
 '''
     
@@ -12,7 +12,7 @@ for i in range(1, rows, +1):
 # Diamond
 rows = int(input("Enter Number of Rows: "))
 
-for i in range(1, rows, +1): # upper part 
+for i in range(1, rows): # upper part 
     print(" " * (rows - i) + "# " * i)
 
 for j in range(rows, 0, -1): # lower part
@@ -32,7 +32,25 @@ for i in range(rows):
             print("O", end=" ")
     print()
 '''
-for i in range(3):
-    for j in range(3):
-        print(i, j)
-        
+'''
+# 6 x 7 matrix heart shape
+for row in range(6):
+		for col in range(7):
+			if (row == 0 and (col%3 != 0)) or (row == 1 and (col%3 ==0)) or ((row - col == 2)) or ((row + col == 8)):
+				print("*",end="")
+			else:
+				print(" ",end="")
+		print()	
+'''
+
+# trying to create another solution for the heart pattern
+rows = int(input("Enter Number of Rows: "))
+
+for i in range(2, rows):
+    left_T = (" " * (rows - i) + "* " * i)
+    right_T = (" " * (2 * (rows - i)) + "* " * i)
+    
+    print(left_T,right_T)
+rows_d = 2 * rows
+for i in range(rows_d, 0, -1):
+    print(" " * (rows_d - i) + "* " * i)
