@@ -46,11 +46,16 @@ for row in range(6):
 # trying to create another solution for the heart pattern
 rows = int(input("Enter Number of Rows: "))
 
-for i in range(2, rows):
-    left_T = (" " * (rows - i) + "* " * i)
-    right_T = (" " * (2 * (rows - i)) + "* " * i)
+for i in range(2, rows + 1):
     
-    print(left_T,right_T)
-rows_d = 2 * rows
-for i in range(rows_d, 0, -1):
-    print(" " * (rows_d - i) + "* " * i)
+    left_t = (" " * (rows - i) + "* " * i)
+    
+    right_t = (" " * ((rows - i) * 2) + "* " * i)
+    
+    print("" + left_t + "" + right_t)
+    
+rows_dbl = 2 * rows 
+
+for i in range(rows_dbl, 0, -1):
+    
+    print(" " * (rows_dbl - i) + "* " * i)
