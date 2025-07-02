@@ -188,12 +188,29 @@
 # lesson ? I guess we need to be careful of usign mutable arguments like lists and dictionaries 
 # unless you have a reason on using them
 
-def mutate(x, y = []):
-    y.append(x)
-    print(y) # i added this to print the default lists
-    y = []
-    return y
+# def mutate(x, y = []):
+#     y.append(x)
+#     print(y) # i added this to print the default lists
+#     y = []
+#     return y
 
-print(mutate(1))
-print(mutate(2))
-print(mutate(3))
+# print(mutate(1))
+# print(mutate(2))
+# print(mutate(3))
+
+# Some nested functions inside is a counter 
+# from I understand the inner function is using the count variable 
+# from the outer function but it does not update the counter so the results will always be
+# 1 1
+# in order for the inner function to use and update the count outer function we need to declare
+# nonlocal count and count += 1
+def make_counter():
+    count = 0
+    def counter():
+        # nonlocal count
+        # count += 1
+        return count + 1 # remove + 1 and uncomment above lines
+    return counter
+
+c = make_counter()
+print(c(), c())
